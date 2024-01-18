@@ -1,4 +1,3 @@
-/// <reference types='Cypress' />
 const { faker } = require('@faker-js/faker');
 const HomePage = require('../support/e_shop/homePage');
 const RegisterPage = require('../support/e_shop/registerPage');

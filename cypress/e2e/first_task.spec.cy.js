@@ -1,4 +1,3 @@
-/// <reference types='Cypress' />
 const HomePage = require('../support/epam/homePage');
 const Locations = require('../support/epam/locations');
 
@@ -31,4 +30,5 @@ describe('task 1', () => {
     homePage.locationSelectorUA.click();
     cy.url('eq', location.urlEpamUA);
   });
+  
 });
