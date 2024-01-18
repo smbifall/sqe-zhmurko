@@ -30,5 +30,27 @@ describe('task 1', () => {
     homePage.locationSelectorUA.click();
     cy.url('eq', location.urlEpamUA);
   });
+
+  it('check the policies list', () => {
+    cy.scrollTo('bottom');
+    const expectedTexts = 
+      [
+        'INVESTORS',
+        'OPEN SOURCE',
+        'PRIVACY POLICY',
+        'COOKIE POLICY',
+        'APPLICANT PRIVACY NOTICE',
+        'WEB ACCESSIBILITY',
+      ];
+    homePage.policiesLinks.each(($link, index) => {
+      const expectedText = expectedTexts[index];
+      cy.wrap($link).should('contain.text', expectedText);
+    });
+  });
+
+  it('switch location list by region', () => {
+    
+  });
+
   
 });

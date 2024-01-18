@@ -19,13 +19,14 @@ class HomePage {
     .contains('Українська')
     .parent('.location-selector__item'); 
   }
+  get policiesLinks() { return cy.get('.policies-links-wrapper .fat-links'); }
 
   // Methods
   open() { 
     cy.visit('https://www.epam.com/'); 
   }
   changeTheme() { 
-    cy.get('.theme-switcher')
+    cy.get('a.desktop-logo + section.theme-switcher-ui .switch')
       .click();
   }
   getCurrentTheme() {

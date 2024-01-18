@@ -23,11 +23,6 @@
       "new-cap": "error",
       "no-invalid-this": "error",
       "prefer-const": "error",
-      "prefer-destructuring": [
-          "error",
-          { "array": true, "object": true },
-          { "enforceForRenamedProperties": true }
-      ],
       "eqeqeq": "error",
       "no-plusplus": "error"
     }
