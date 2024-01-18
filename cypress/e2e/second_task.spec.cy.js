@@ -23,7 +23,7 @@ describe('task 2', () => {
   const password = faker.internet.password();
   const confirmPassword = password;
 
-  beforeEach(() => { registerPage.open(); });
+  beforeEach(() => { homePage.open(); });
 
   it('register a user', () => {
 
