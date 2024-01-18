@@ -1,0 +1,34 @@
+{
+    "env": {
+        "browser": true,
+        "es6": true
+    },
+    "rules": {
+      "indent": ["error", 2],
+      "space-infix-ops": "error",
+      "keyword-spacing": "error",
+      "newline-per-chained-call": "error",
+      "comma-spacing": ["error", {"before": false, "after": true}],
+      "arrow-spacing": "error",
+      "semi": ["error", "always"], 
+          "semi-spacing": "error",
+          "no-extra-semi": "error",
+      "no-unexpected-multiline": "error",
+      "max-len": ["error", {"code": 200}],
+      "comma-style": ["error", "last"],
+      "comma-dangle": ["error", "always-multiline"],
+      "func-style": ["error", "expression"],
+      "no-param-reassign": "error",
+      "prefer-arrow-callback": "error",
+      "new-cap": "error",
+      "no-invalid-this": "error",
+      "prefer-const": "error",
+      "prefer-destructuring": [
+          "error",
+          { "array": true, "object": true },
+          { "enforceForRenamedProperties": true }
+      ],
+      "eqeqeq": "error",
+      "no-plusplus": "error"
+    }
+}

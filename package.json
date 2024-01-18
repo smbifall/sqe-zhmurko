@@ -1,0 +1,21 @@
+{
+  "name": "sqe-zhmurko",
+  "type": "module",
+  "version": "1.0.0",
+  "description": "Final hometask for Software Quality Engineering Mentoring Program 2023/Q3 - 2024/Q1",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Oleksandr Zhmurko",
+  "license": "ISC",
+  "devDependencies": {
+    "cypress": "^13.6.3",
+    "eslint": "^8.56.0",
+    "eslint-plugin-import": "^2.29.1"
+  },
+  "dependencies": {
+    "@faker-js/faker": "^8.3.1"
+  }
+}
