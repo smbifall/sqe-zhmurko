@@ -1,34 +1,32 @@
-const HomePage = require('../support/epam/homePage');
-const Locations = require('../support/epam/locations');
+const HomePage = require('../support/po/pages/epam/homePage');
+
+const homePage = new HomePage();
 
 describe('task 1', () => {
-  const homePage = new HomePage();
-  const location = new Locations();
+  
   before(() => {
     homePage.crossOriginUA();
   });
+
   beforeEach(() => {
     homePage.open();
   });
 
-
-  it('contains the correct title', () => {
+  it('verify the correct title', () => {
     homePage.epamTitle.should('equal', 'EPAM | Software Engineering & Product Development Services');
   });
 
-
-  it('switch light & dark mode', () => {
+  it('switch between light & dark mode', () => {
     const initialTheme = homePage.getCurrentTheme();
-    homePage.changeTheme();
+    homePage.header.changeTheme();
     const switchedTheme = homePage.getCurrentTheme();
     expect(switchedTheme).to.not.equal(initialTheme);
   });
 
-
-  it('changes language to UA', () => {
-    homePage.locationSelectionBttn.click();
-    homePage.locationSelectorUA.click();
-    cy.url('eq', location.urlEpamUA);
+  it('change language to UA', () => {
+    homePage.header.locationSelectionBttn.click();
+    homePage.header.locationSelectionUA.click();
+    cy.url('eq', homePage.urlEpamUA);
   });
 
   it('check the policies list', () => {
@@ -43,14 +41,49 @@ describe('task 1', () => {
         'WEB ACCESSIBILITY',
       ];
     homePage.policiesLinks.each(($link, index) => {
-      const expectedText = expectedTexts[index];
-      cy.wrap($link).should('contain.text', expectedText);
+      cy.wrap($link).should('contain.text', expectedTexts[index]);
     });
   });
 
   it('switch location list by region', () => {
+    homePage.ourLocations.locationsSection.scrollIntoView().should('be.visible');
+
+    homePage.ourLocations.locationsAmericas
+      .should('be.visible')
+      .invoke('attr', 'class')
+      .should('include', 'active');
+    homePage.ourLocations.locationsEmea
+      .invoke('attr', 'class')
+      .should('not.include', 'active');
+    homePage.ourLocations.locationsApac
+      .invoke('attr', 'class')
+      .should('not.include', 'active');
+
+    homePage.ourLocations.locationsEmea
+      .click()
+      .invoke('attr', 'class')
+      .should('include', 'active');
+    homePage.ourLocations.locationsAmericas
+      .invoke('attr', 'class')
+      .should('not.include', 'active');
+    homePage.ourLocations.locationsApac
+      .invoke('attr', 'class')
+      .should('not.include', 'active');
+
+    homePage.ourLocations.locationsApac
+      .click()
+      .invoke('attr', 'class')
+      .should('include', 'active');
+    homePage.ourLocations.locationsEmea
+      .invoke('attr', 'class')
+      .should('not.include', 'active');
+    homePage.ourLocations.locationsAmericas
+      .invoke('attr', 'class')
+      .should('not.include', 'active');
+  });
+
+  it('check the search function', () => {
     
   });
 
-  
 });
