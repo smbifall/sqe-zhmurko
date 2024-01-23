@@ -22,17 +22,7 @@ class HomePage {
     return cy.get('body').invoke('attr', 'class')
       .then((classValue) => { return classValue.includes('dark-mode') ? 'dark-mode' : 'light-mode'; });
   }
-  crossOriginUA() {
-    cy.origin('https://careers.epam.ua', () => {
-      cy.on('uncaught:exception', (e) => {
-        if (e.message.includes('Failed to set a named property \'onbeforeunload\' on \'Window\'')) {
-          // Ignore the specific error related to the cross-origin issue
-          return false;
-        }
-      });
-    });
-  }
-
+  
 }
 
 module.exports = HomePage;

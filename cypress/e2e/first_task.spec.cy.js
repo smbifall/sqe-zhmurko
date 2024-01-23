@@ -1,12 +1,14 @@
 const HomePage = require('../support/po/pages/epam/homePage');
+const SearchPage = require('../support/po/pages/epam/searchPage');
 
 const homePage = new HomePage();
+const searchPage = new SearchPage();
 
 describe('task 1', () => {
   
-  before(() => {
-    homePage.crossOriginUA();
-  });
+  // before(() => {
+  //   homePage.crossOriginUA();
+  // });
 
   beforeEach(() => {
     homePage.open();
@@ -46,7 +48,9 @@ describe('task 1', () => {
   });
 
   it('switch location list by region', () => {
-    homePage.ourLocations.locationsSection.scrollIntoView().should('be.visible');
+    homePage.ourLocations.locationsSection
+      .scrollIntoView()
+      .should('be.visible');
 
     homePage.ourLocations.locationsAmericas
       .should('be.visible')
@@ -83,7 +87,11 @@ describe('task 1', () => {
   });
 
   it('check the search function', () => {
-    
+    homePage.header.searchIcon.click();
+    homePage.header.searchInput.type('AI');
+    homePage.header.searchBttn.click();
+    searchPage.searchResult.should('be.visible');
+    searchPage.searchResultItem.should('have.length.greaterThan', 0);
   });
 
 });
