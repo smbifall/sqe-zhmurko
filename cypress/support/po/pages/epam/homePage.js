@@ -8,9 +8,10 @@ class HomePage {
     this.header = new Header();
   }
 
-  get urlEpamGlobal() { return 'https://epam.com'; }
+  get urlEpamGlobal() { return 'https://www.epam.com/'; }
   get urlEpamUA() { return 'https://careers.epam.ua'; }
   get epamTitle() { return cy.title(); }
+  get epamLogo() { return cy.get('.desktop-logo > .header__logo-light'); }
   get policiesLinks() { return cy.get('.policies-links-wrapper .fat-links'); }
 
   open() { 
