@@ -49,7 +49,7 @@ Steps:
 Steps:
 >Open https://www.epam.com/about/who-we-are/contact
 >Check validation for required fields
->Expected: Required fields 
+>Expected: Required fields
  
 8. Check tha the Company logo on the header lead to the main page
 Steps:
