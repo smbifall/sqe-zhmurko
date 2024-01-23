@@ -1,5 +1,5 @@
-const User = require('../components/pet_store/user');
-const Pet = require('../components/pet_store/pet');
+const User = require('../../components/pet_store/user');
+const Pet = require('../../components/pet_store/pet');
 
 class swaggerData {
   constructor() {

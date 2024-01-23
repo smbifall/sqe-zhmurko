@@ -4,7 +4,7 @@ class Pet {
 
   generatePetData() {
     return {
-      id: Math.floor(Math.random() * 10000),
+      id: 1, // Math.floor(Math.random() * 10000),
       name: 'Fluffy',
       category: {
         id: 1,

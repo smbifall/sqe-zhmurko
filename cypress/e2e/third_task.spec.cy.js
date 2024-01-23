@@ -1,4 +1,4 @@
-const SwaggerData = require('../support/po/pet_store/swaggerData');
+const SwaggerData = require('../support/po/pages/pet_store/swaggerData');
 
 const swaggerData = new SwaggerData();
 
@@ -75,7 +75,7 @@ describe('task 3', () => {
   // });
 
   // it('update Pet’s name and status', () => {
-  //   const petId = Math.floor(Math.random() * 100);
+  //   const petId = '/1';
   //   const updatedData = {
   //     name: 'Pluppy',
   //     status: 'sold out',
@@ -83,7 +83,7 @@ describe('task 3', () => {
 
   //   cy.request(
   //     'POST',
-  //     `${swaggerData.pet.addPetUrl}/${petId}`,
+  //     `${swaggerData.pet.addPetUrl}${petId}`,
   //     updatedData)
   //     .then((response) => {
   //       expect(response.status).to.eq(201);
@@ -91,7 +91,7 @@ describe('task 3', () => {
   // });
 
   it('delete a pet', () => {
-    const petId = `/${Math.floor(Math.random() * 100)}`;
+    const petId = '/1';
     const deleteData = {
       apiKey: 'abc',
       petId: petId,
