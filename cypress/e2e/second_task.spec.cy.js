@@ -2,11 +2,13 @@ const HomePage = require('../support/po/pages/e_shop/homePage');
 const RegisterPage = require('../support/po/pages/e_shop/registerPage');
 const LoginPage = require('../support/po/pages/e_shop/loginPage');
 const Path = require('../support/po/pages/e_shop/path');
+const DesktopsPage = require('../support/po/pages/e_shop/desktopsPage');
 
 const homePage = new HomePage();
 const registerPage = new RegisterPage();
 const loginPage = new LoginPage();
 const path = new Path();
+const desktopsPage = new DesktopsPage();
 
 describe('task 2', () => {
 
@@ -39,7 +41,7 @@ describe('task 2', () => {
     homePage.accountInfo.should('have.text', regData.email);
   });
 
-  it('verify that ‘Computers’ group has 3 sub-groups with correct names', () => {
+  it('verify that `Computers` group has 3 sub-groups with correct names', () => {
     const expectedSubGroupNames = homePage.categories.getComputersGroupNames();
 
     homePage.categories.hoverOverComputers();
@@ -49,5 +51,48 @@ describe('task 2', () => {
         .should('contain.text', expectedSubGroupNames[index]);
     });
   });
+
+  it('sorting items (different options)', () => {
+    desktopsPage.open();
+    
+    // sort in ascending order
+    const expectedAscOrder = ['Build your own cheap computer', 'Build your own computer', 'Build your own expensive computer', 'Desktop PC with CDRW', 'Elite Desktop PC', 'Simple Computer'];
+
+    desktopsPage.selectSortingOption('Name: A to Z');
+    desktopsPage.productNames
+      .invoke('text')
+      .then(actualText => {
+        const trimmedActualText = actualText.replace(/\s+/g, ' ').trim();
+        const trimmedExpectedText = expectedAscOrder.join(' ');
+
+        expect(trimmedActualText).to.equal(trimmedExpectedText);
+      });
+
+    // sort in descending order (wip)
+    // const expectedDescOrder = ['1800.00', '$1350.00', '1200.00', '800.00', '800.00', '500.00'];
+
+    // desktopsPage.selectSortingOption('Price: High to Low');
+    // desktopsPage.productNames.should('have.text', expectedDescOrder.join(''));
+  });
+
+  // it('change number of items on page', () => {
+
+  // });
+
+  // it('add an item to the wishlist', () => {
+
+  // });
+
+  // it('add an item to the cart', () => {
+
+  // });
+
+  // it('remove an item from the cart', () => {
+
+  // });
+
+  // it('checkout an item', () => {
+
+  // });
 
 });
