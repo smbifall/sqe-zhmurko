@@ -3,12 +3,16 @@ const RegisterPage = require('../support/po/pages/e_shop/registerPage');
 const LoginPage = require('../support/po/pages/e_shop/loginPage');
 const Path = require('../support/po/pages/e_shop/path');
 const DesktopsPage = require('../support/po/pages/e_shop/desktopsPage');
+const JewelryPage = require('../support/po/pages/e_shop/jewelryPage');
+const WishlistPage = require('../support/po/pages/e_shop/wishlistPage');
 
 const homePage = new HomePage();
 const registerPage = new RegisterPage();
 const loginPage = new LoginPage();
 const path = new Path();
 const desktopsPage = new DesktopsPage();
+const jewelryPage = new JewelryPage();
+const wishlistPage = new WishlistPage();
 
 describe('task 2', () => {
 
@@ -98,9 +102,20 @@ describe('task 2', () => {
     desktopsPage.productItems.should('have.length', expectedItemCount);
   });
 
-  // it('add an item to the wishlist', () => {
+  it('add an item to the wishlist', () => {
+    homePage.loginBttn.click();
+    loginPage.fillLoginForm(regData);
+    loginPage.loginBttn.click();
 
-  // });
+    jewelryPage.open();
+    jewelryPage.wishlistItem.click();
+    jewelryPage.addToWishlistBttn.click();
+    jewelryPage.barNotification.should('have.text', 'The product has been added to your wishlist');
+    jewelryPage.wishlistQuantity.should('have.text', '(1)');
+    jewelryPage.wishlistIcon.click();
+
+    wishlistPage.wishlistProduct.should('contain.text', 'Black & White Diamond Heart');
+  });
 
   // it('add an item to the cart', () => {
 
