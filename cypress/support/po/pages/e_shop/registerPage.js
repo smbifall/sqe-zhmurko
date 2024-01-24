@@ -1,18 +1,18 @@
+const { faker } = require('@faker-js/faker');
+const Path = require('../e_shop/path');
+
+const path = new Path();
 class RegisterPage {
 
-  // Inputs
   get firstName() { return cy.get('#FirstName'); }
   get lastName() { return cy.get('#LastName'); }
   get email() { return cy.get('#Email'); }
   get password() { return cy.get('#Password'); }
   get confirmPassword() { return cy.get('#ConfirmPassword'); }
-
-  // Buttons
   get registerBttn() { return cy.get('#register-button'); }
 
-  // Methods
   open() { 
-    cy.visit('https://demowebshop.tricentis.com/register');
+    cy.visit(path.registerPage);
   }
   fillRegForm(params) {
 
@@ -37,6 +37,29 @@ class RegisterPage {
     if (params.confirmPassword) {
       this.confirmPassword.type(params.confirmPassword);
     }
+  }
+  generateRegData() {
+    const randomGender = () => {
+      const genders = ['male', 'female'];
+      const randomIndex = Math.floor(Math.random() * genders.length);
+      return genders[randomIndex];
+    };
+    
+    const gender = randomGender();
+    const firstName = faker.person.firstName();
+    const lastName = faker.person.lastName();
+    const email = faker.internet.email();
+    const password = faker.internet.password();
+    const confirmPassword = password;
+
+    return {
+      gender,
+      firstName,
+      lastName,
+      email,
+      password,
+      confirmPassword,
+    };
   }
 
 }

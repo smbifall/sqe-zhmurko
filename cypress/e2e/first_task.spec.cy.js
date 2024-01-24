@@ -1,10 +1,12 @@
 const HomePage = require('../support/po/pages/epam/homePage');
 const SearchPage = require('../support/po/pages/epam/searchPage');
 const ContactPage = require('../support/po/pages/epam/contactPage');
+const Path = require('../support/po/pages/epam/path');
 
 const homePage = new HomePage();
 const searchPage = new SearchPage();
 const contactPage = new ContactPage();
+const path = new Path();
 
 describe('task 1', () => {
 
@@ -26,7 +28,7 @@ describe('task 1', () => {
   it('change language to UA', () => {
     homePage.header.locationSelectionBttn.click();
     homePage.header.locationSelectionUA.click();
-    cy.url('eq', homePage.urlEpamUA);
+    cy.url('eq', path.epamUA);
   });
 
   it('check the policies list', () => {
@@ -115,7 +117,7 @@ describe('task 1', () => {
   it('verify the company logo on the header leads to the main page', () => {
     contactPage.open();
     homePage.epamLogo.click();
-    cy.url().should('eq', homePage.urlEpamGlobal);
+    cy.url().should('eq', path.epamGlobal);
   });
 
 });

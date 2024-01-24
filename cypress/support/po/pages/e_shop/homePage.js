@@ -1,12 +1,14 @@
+const Path = require('../e_shop/path');
+
+const path = new Path();
+
 class HomePage {
 
-  // Elements
-  get registerButton() { return cy.get('.ico-register'); }
-  get loginButton() { return cy.get('.ico-login'); }
+  get registerBttn() { return cy.get('.ico-register'); }
+  get loginBttn() { return cy.get('.ico-login'); }
 
-  // Methods
   open() { 
-    cy.visit('https://demowebshop.tricentis.com/');
+    cy.visit(path.baseUrl);
   }
   
 }

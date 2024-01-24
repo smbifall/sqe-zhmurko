@@ -1,43 +1,34 @@
-const { faker } = require('@faker-js/faker');
-const HomePage = require('../support/e_shop/homePage');
-const RegisterPage = require('../support/e_shop/registerPage');
-const Locations = require('../support/e_shop/locations');
+const HomePage = require('../support/po/pages/e_shop/homePage');
+const RegisterPage = require('../support/po/pages/e_shop/registerPage');
+const Path = require('../support/po/pages/e_shop/path');
+
+const homePage = new HomePage();
+const registerPage = new RegisterPage();
+const path = new Path();
 
 describe('task 2', () => {
-  const homePage = new HomePage();
-  const registerPage = new RegisterPage();
-  const location = new Locations();
 
-  // Reg form data
-  const randomGender = () => {
-    const genders = ['male', 'female'];
-    const randomIndex = Math.floor(Math.random() * genders.length);
-    return genders[randomIndex];
-  };
+  const RegData = registerPage.generateRegData();
 
-  const gender = randomGender();
-  const firstName = faker.person.firstName();
-  const lastName = faker.person.lastName();
-  const email = faker.internet.email();
-  const password = faker.internet.password();
-  const confirmPassword = password;
-
-  beforeEach(() => { homePage.open(); });
+  beforeEach(() => { 
+    homePage.open(); 
+  });
 
   it('register a user', () => {
 
-    homePage.registerButton.click();
+    homePage.registerBttn.click();
 
-    cy.url().should('eq', location.registerPage);
+    cy.url().should('eq', path.registerPage);
 
-    registerPage.fillRegForm({
-      gender: gender,
-      firstName: firstName,
-      lastName: lastName,
-      email: email,
-      password: password,
-      confirmPassword: confirmPassword,
-    });
+    registerPage.fillRegForm(RegData);
+    // registerPage.fillRegForm({
+    //   gender: gender,
+    //   firstName: firstName,
+    //   lastName: lastName,
+    //   email: email,
+    //   password: password,
+    //   confirmPassword: confirmPassword,
+    // });
 
     registerPage.registerBttn.click();
 
