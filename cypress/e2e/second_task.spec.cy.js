@@ -39,4 +39,15 @@ describe('task 2', () => {
     homePage.accountInfo.should('have.text', regData.email);
   });
 
+  it('verify that ‘Computers’ group has 3 sub-groups with correct names', () => {
+    const expectedSubGroupNames = homePage.categories.getComputersGroupNames();
+
+    homePage.categories.hoverOverComputers();
+
+    homePage.categories.getComputersGroupSelectors().forEach((el, index) => {
+      cy.get(el)
+        .should('contain.text', expectedSubGroupNames[index]);
+    });
+  });
+
 });
