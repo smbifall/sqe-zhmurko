@@ -15,23 +15,12 @@ describe('task 2', () => {
   });
 
   it('register a user', () => {
-
     homePage.registerBttn.click();
 
     cy.url().should('eq', path.registerPage);
 
     registerPage.fillRegForm(RegData);
-    // registerPage.fillRegForm({
-    //   gender: gender,
-    //   firstName: firstName,
-    //   lastName: lastName,
-    //   email: email,
-    //   password: password,
-    //   confirmPassword: confirmPassword,
-    // });
-
     registerPage.registerBttn.click();
-
   });
 
 });
