@@ -54,9 +54,16 @@ describe('task 2', () => {
 
   it('sorting items (different options)', () => {
     desktopsPage.open();
-    
+
     // sort in ascending order
-    const expectedAscOrder = ['Build your own cheap computer', 'Build your own computer', 'Build your own expensive computer', 'Desktop PC with CDRW', 'Elite Desktop PC', 'Simple Computer'];
+    const expectedAscOrder = [
+      'Build your own cheap computer', 
+      'Build your own computer', 
+      'Build your own expensive computer', 
+      'Desktop PC with CDRW', 
+      'Elite Desktop PC', 
+      'Simple Computer',
+    ];
 
     desktopsPage.selectSortingOption('Name: A to Z');
     desktopsPage.productNames
@@ -68,16 +75,28 @@ describe('task 2', () => {
         expect(trimmedActualText).to.equal(trimmedExpectedText);
       });
 
-    // sort in descending order (wip)
-    // const expectedDescOrder = ['1800.00', '$1350.00', '1200.00', '800.00', '800.00', '500.00'];
+    // sort in descending order
+    const expectedDescOrder = [
+      '1800.00', 
+      '1350.00', 
+      '1200.00', 
+      '800.00', 
+      '800.00', 
+      '500.00',
+    ];
 
-    // desktopsPage.selectSortingOption('Price: High to Low');
-    // desktopsPage.productNames.should('have.text', expectedDescOrder.join(''));
+    desktopsPage.selectSortingOption('Price: High to Low');
+    desktopsPage.productPrices.should('have.text', expectedDescOrder.join(''));
   });
 
-  // it('change number of items on page', () => {
+  it('change number of items on page', () => {
+    const expectedItemCount = 4;
 
-  // });
+    desktopsPage.open();
+
+    desktopsPage.selectItemsPerPage(`${expectedItemCount}`);
+    desktopsPage.productItems.should('have.length', expectedItemCount);
+  });
 
   // it('add an item to the wishlist', () => {
 
