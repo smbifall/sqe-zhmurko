@@ -10,6 +10,7 @@ class RegisterPage {
   get password() { return cy.get('#Password'); }
   get confirmPassword() { return cy.get('#ConfirmPassword'); }
   get registerBttn() { return cy.get('#register-button'); }
+  get registerResult() { return cy.get('.result'); }
 
   open() { 
     cy.visit(path.registerPage);

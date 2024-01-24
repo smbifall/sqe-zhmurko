@@ -6,6 +6,7 @@ class HomePage {
 
   get registerBttn() { return cy.get('.ico-register'); }
   get loginBttn() { return cy.get('.ico-login'); }
+  get accountInfo() { return cy.get('.header-links > ul > :nth-child(1) > .account'); }
 
   open() { 
     cy.visit(path.baseUrl);
