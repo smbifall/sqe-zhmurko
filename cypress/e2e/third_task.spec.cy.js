@@ -7,24 +7,24 @@ describe('task 3', () => {
 
   it('create new user', () => {
     cy.request(
-      'POST',
-      swaggerData.user.registrationUrl,
-      registrationData)
-      .then((response) => {
-        expect(response.status).to.equal(200);
-      });
+      {
+        method: 'POST',
+        url: swaggerData.user.registrationUrl,
+        body: registrationData,
+      })
+      .then((response) => { expect(response.status).to.equal(200); });
   });
 
   it('login', () => {
     const loginData = swaggerData.user.getLoginData();
 
     cy.request(
-      'GET',
-      swaggerData.user.loginUrl,
-      loginData)
-      .then((response) => {
-        expect(response.status).to.eq(200);
-      });
+      {
+        method: 'GET',
+        url: swaggerData.user.loginUrl,
+        body: loginData,
+      })
+      .then((response) => { expect(response.status).to.eq(200); });
   });
 
   it('create a list of users', () => {
@@ -34,76 +34,87 @@ describe('task 3', () => {
     ];
 
     cy.request(
-      'POST',
-      swaggerData.user.usersListUrl,
-      usersArray)
-      .then((response) => {
-        expect(response.status).to.eq(200);
-      });
+      {
+        method: 'POST',
+        url: swaggerData.user.usersListUrl,
+        body: usersArray,
+      })
+      .then((response) => { expect(response.status).to.eq(200); });
   });
 
   it('user logout', () => {
     cy.request(
-      'GET',
-      swaggerData.user.logoutUrl)
-      .then((response) => {
-        expect(response.status).to.eq(200);
-      });
+      {
+        method: 'GET',
+        url: swaggerData.user.logoutUrl,
+      })
+      .then((response) => { expect(response.status).to.eq(200); });
   });
 
   it('add a new pet', () => {
     cy.request(
-      'POST',
-      swaggerData.pet.addPetUrl,
-      swaggerData.pet.generatePetData())
+      {
+        method: 'POST',
+        url: swaggerData.pet.petUrl,
+        body: swaggerData.pet.generatePetData(),
+      })
+      .then((response) => { expect(response.status).to.eq(200); });
+  });
+
+  it('update pet image', () => {
+    const petId = 123;
+    const petImage = ['https://example.com/fluffy.jpg'];
+
+    // Create a FormData object
+    const formData = new FormData();
+    formData.append('file', petImage[0]);
+
+    cy.request({
+      method: 'POST',
+      url: `${swaggerData.pet.petUrl}/${petId}/uploadImage`,
+      body: formData,
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    }).then((response) => { expect(response.status).to.eq(200); });
+  });
+
+  it('update Pet’s name and status', () => {
+    const petId = 123;
+    const updatedData = {
+      name: 'Pluppy',
+      status: 'sold out',
+    };
+
+    cy.request(
+      {
+        method: 'POST',
+        url: `${swaggerData.pet.petUrl}/${petId}`,
+        form: true,
+        body: {
+          name: updatedData.name,
+          status: updatedData.status,
+        },
+      })
       .then((response) => {
         expect(response.status).to.eq(200);
       });
   });
 
-  // it('update pet image', () => {
-  //   const imageData = { file: ['https://example.com/new-image.jpg'] };
-  //   const petId = `/${Math.floor(Math.random() * 100)}`;
-
-  //   cy.request(
-  //     'PUT',
-  //     `${swaggerData.pet.addPetUrl}${petId}/uploadImage`,
-  //     imageData)
-  //     .then((response) => {
-  //       expect(response.status).to.eq(200);
-  //     });
-  // });
-
-  // it('update Pet’s name and status', () => {
-  //   const petId = '/1';
-  //   const updatedData = {
-  //     name: 'Pluppy',
-  //     status: 'sold out',
-  //   };
-
-  //   cy.request(
-  //     'POST',
-  //     `${swaggerData.pet.addPetUrl}${petId}`,
-  //     updatedData)
-  //     .then((response) => {
-  //       expect(response.status).to.eq(201);
-  //     });
-  // });
-
   it('delete a pet', () => {
-    const petId = '/1';
+    const petId = 1;
     const deleteData = {
-      apiKey: 'abc',
+      apiKey: 'apiKey',
       petId: petId,
     };
 
     cy.request(
-      'DELETE',
-      `${swaggerData.pet.addPetUrl}${petId}`,
-      deleteData)
-      .then((response) => {
-        expect(response.status).to.eq(200);
-      });
+      {
+        method: 'DELETE',
+        url: `${swaggerData.pet.petUrl}/${petId}`,
+        body: deleteData,
+      })
+      .then((response) => { expect(response.status).to.eq(200); });
   });
 
 });

@@ -1,10 +1,10 @@
 class Pet {
 
-  get addPetUrl() { return 'https://petstore.swagger.io/v2/pet'; }
+  get petUrl() { return 'https://petstore.swagger.io/v2/pet'; }
 
   generatePetData() {
     return {
-      id: 1, // Math.floor(Math.random() * 10000),
+      id: 123,
       name: 'Fluffy',
       category: {
         id: 1,
