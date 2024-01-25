@@ -88,7 +88,8 @@ describe('task 1', () => {
 
   it('check the search function', () => {
     homePage.header.searchIcon.click();
-    homePage.header.searchInput.type('AI');
+    homePage.header.searchInputField.should('be.visible');
+    homePage.header.searchInputField.type('AI');
     homePage.header.searchBttn.click();
     searchPage.searchResult.should('be.visible');
     searchPage.searchResultItem.should('have.length.greaterThan', 0);
