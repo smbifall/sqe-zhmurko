@@ -101,7 +101,7 @@ describe('task 3', () => {
   });
 
   it('delete a pet', () => {
-    const petId = 1;
+    const petId = 123;
     const deleteData = {
       apiKey: 'apiKey',
       petId: petId,
