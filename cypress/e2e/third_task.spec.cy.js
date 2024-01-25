@@ -65,7 +65,6 @@ describe('task 3', () => {
     const petId = 123;
     const petImage = ['https://example.com/fluffy.jpg'];
 
-    // Create a FormData object
     const formData = new FormData();
     formData.append('file', petImage[0]);
 
@@ -79,7 +78,7 @@ describe('task 3', () => {
     }).then((response) => { expect(response.status).to.eq(200); });
   });
 
-  it('update Pet’s name and status', () => {
+  it('update Pet`s name and status', () => {
     const petId = 123;
     const updatedData = {
       name: 'Pluppy',
