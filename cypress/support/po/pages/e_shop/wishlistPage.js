@@ -1,6 +1,6 @@
 class WishlistPage {
   
-  get wishlistProduct() { return cy.get('.product > a'); }
+  get wishlistItem() { return cy.get('.product > a'); }
 
 }
 

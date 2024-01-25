@@ -6,6 +6,7 @@ class Path {
   get loginPage() { return 'https://demowebshop.tricentis.com/login'; }
   get desktopsPage() { return 'https://demowebshop.tricentis.com/desktops'; }
   get jewelryPage() { return 'https://demowebshop.tricentis.com/jewelry'; }
+  get CheckoutPage() { return 'https://demowebshop.tricentis.com/onepagecheckout'; }
   
 }
 

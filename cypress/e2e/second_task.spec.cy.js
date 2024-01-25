@@ -5,6 +5,10 @@ const Path = require('../support/po/pages/e_shop/path');
 const DesktopsPage = require('../support/po/pages/e_shop/desktopsPage');
 const JewelryPage = require('../support/po/pages/e_shop/jewelryPage');
 const WishlistPage = require('../support/po/pages/e_shop/wishlistPage');
+const CartPage = require('../support/po/pages/e_shop/cartPage');
+const Guest = require('../support/po/components/e_shop/guest');
+const User = require('../support/po/components/e_shop/user');
+const Header = require('../support/po/components/e_shop/header');
 
 const homePage = new HomePage();
 const registerPage = new RegisterPage();
@@ -13,6 +17,10 @@ const path = new Path();
 const desktopsPage = new DesktopsPage();
 const jewelryPage = new JewelryPage();
 const wishlistPage = new WishlistPage();
+const cartPage = new CartPage();
+const guest = new Guest();
+const user = new User();
+const header = new Header();
 
 describe('task 2', () => {
 
@@ -23,26 +31,24 @@ describe('task 2', () => {
   });
 
   it('register a user', () => {
-    homePage.registerBttn.click();
-
+    header.openRegistration();
     cy.url().should('eq', path.registerPage);
 
     registerPage.fillRegForm(regData);
-    registerPage.registerBttn.click();
 
+    registerPage.registerBttn.click();
     cy.url().should('eq', path.successRegistration);
     registerPage.registerResult.should('contain.text', 'Your registration completed');
   });
 
   it('login a user', () => {
-    homePage.loginBttn.click();
-
+    header.openLogin();
     cy.url().should('eq', path.loginPage);
 
     loginPage.fillLoginForm(regData);
-    loginPage.loginBttn.click();
 
-    homePage.accountInfo.should('have.text', regData.email);
+    loginPage.loginBttn.click();
+    header.accountInfo.should('have.text', regData.email);
   });
 
   it('verify that `Computers` group has 3 sub-groups with correct names', () => {
@@ -103,30 +109,49 @@ describe('task 2', () => {
   });
 
   it('add an item to the wishlist', () => {
-    homePage.loginBttn.click();
+    header.openLogin();
+
     loginPage.fillLoginForm(regData);
     loginPage.loginBttn.click();
 
-    jewelryPage.open();
-    jewelryPage.wishlistItem.click();
-    jewelryPage.addToWishlistBttn.click();
+    user.addItemToWishlist();
     jewelryPage.barNotification.should('have.text', 'The product has been added to your wishlist');
     jewelryPage.wishlistQuantity.should('have.text', '(1)');
-    jewelryPage.wishlistIcon.click();
 
-    wishlistPage.wishlistProduct.should('contain.text', 'Black & White Diamond Heart');
+    header.openWishlist();
+    wishlistPage.wishlistItem.should('contain.text', 'Black & White Diamond Heart');
   });
 
-  // it('add an item to the cart', () => {
+  it('add an item to the cart', () => {
+    guest.addItemToCart();
+    jewelryPage.barNotification.should('have.text', 'The product has been added to your shopping cart');
+    jewelryPage.cartQuantity.should('have.text', '(1)');
 
-  // });
+    header.openCart();
+    cartPage.jewerlyItem.should('contain.text', 'Black & White Diamond Heart');
+  });
 
-  // it('remove an item from the cart', () => {
+  it('remove an item from the cart', () => {
+    guest.addItemToCart();
+    header.openCart();
 
-  // });
+    cartPage.cleanCart();
+    cartPage.summaryContent.should('contain.text', 'Your Shopping Cart is empty!');
+    cartPage.jewerlyItem.should('not.exist');
+  });
 
-  // it('checkout an item', () => {
+  it('checkout an item', () => {
+    header.openLogin();
 
-  // });
+    loginPage.fillLoginForm(regData);
+    loginPage.loginBttn.click();
+
+    user.addItemToCart();
+    header.openCart();
+    cartPage.agreeTermsOfService();
+
+    cartPage.checkout();
+    cy.url('should.eq', path.CheckoutPage);
+  });
 
 });
