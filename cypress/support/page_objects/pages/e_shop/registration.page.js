@@ -1,5 +1,5 @@
 const { faker } = require('@faker-js/faker');
-const Path = require('../e_shop/path');
+const Path = require('./path');
 
 const path = new Path();
 class RegisterPage {

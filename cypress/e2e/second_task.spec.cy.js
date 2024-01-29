@@ -33,7 +33,6 @@ describe('task 2', () => {
   it('register a user', () => {
     header.openRegistration();
     cy.url().should('eq', path.registerPage);
-
     registerPage.fillRegForm(regData);
 
     registerPage.registerBttn.click();
@@ -64,7 +63,6 @@ describe('task 2', () => {
 
   it('sorting items (different options)', () => {
     desktopsPage.open();
-
     // sort in ascending order
     const expectedAscOrder = [
       'Build your own cheap computer', 
@@ -74,7 +72,6 @@ describe('task 2', () => {
       'Elite Desktop PC', 
       'Simple Computer',
     ];
-
     desktopsPage.selectSortingOption('Name: A to Z');
     desktopsPage.productNames
       .invoke('text')
@@ -84,7 +81,6 @@ describe('task 2', () => {
 
         expect(trimmedActualText).to.equal(trimmedExpectedText);
       });
-
     // sort in descending order
     const expectedDescOrder = [
       '1800.00', 
@@ -101,9 +97,7 @@ describe('task 2', () => {
 
   it('change number of items on page', () => {
     const expectedItemCount = 4;
-
     desktopsPage.open();
-
     desktopsPage.selectItemsPerPage(`${expectedItemCount}`);
     desktopsPage.productItems.should('have.length', expectedItemCount);
   });

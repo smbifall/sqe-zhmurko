@@ -1,4 +1,4 @@
-const Path = require('../../pages/e_shop/path');
+const Path = require('./path');
 
 const path = new Path();
 

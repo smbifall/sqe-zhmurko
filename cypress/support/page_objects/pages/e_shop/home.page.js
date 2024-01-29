@@ -1,4 +1,4 @@
-const Path = require('../e_shop/path');
+const Path = require('./path');
 const Categories = require('../../components/e_shop/categories');
 
 const path = new Path();
