@@ -1,21 +1,29 @@
 const { faker } = require('@faker-js/faker');
-const Path = require('./path');
+class RegistrationPage {
 
-const path = new Path();
-class RegisterPage {
-
-  get firstName() { return cy.get('#FirstName'); }
-  get lastName() { return cy.get('#LastName'); }
-  get email() { return cy.get('#Email'); }
-  get password() { return cy.get('#Password'); }
-  get confirmPassword() { return cy.get('#ConfirmPassword'); }
-  get registerBttn() { return cy.get('#register-button'); }
-  get registerResult() { return cy.get('.result'); }
-
-  open() { 
-    cy.visit(path.registerPage);
+  get firstName() { 
+    return cy.get('#FirstName'); 
   }
-  fillRegForm(params) {
+  get lastName() { 
+    return cy.get('#LastName'); 
+  }
+  get email() { 
+    return cy.get('#Email'); 
+  }
+  get password() { 
+    return cy.get('#Password'); 
+  }
+  get confirmPassword() { 
+    return cy.get('#ConfirmPassword'); 
+  }
+  get registerButton() { 
+    return cy.get('#register-button'); 
+  }
+  get registerResult() { 
+    return cy.get('.result'); 
+  }
+
+  fillRegistrationForm(params) {
 
     if (params.gender === 'male') {
       cy.get('#gender-male').check();
@@ -39,7 +47,7 @@ class RegisterPage {
       this.confirmPassword.type(params.confirmPassword);
     }
   }
-  generateRegData() {
+  generateRegistrationData() {
     const randomGender = () => {
       const genders = ['male', 'female'];
       const randomIndex = Math.floor(Math.random() * genders.length);
@@ -62,7 +70,11 @@ class RegisterPage {
       confirmPassword,
     };
   }
+  registerUser(data) {
+    this.fillRegistrationForm(data);
+    this.registerButton.click();
+  }
 
 }
 
-module.exports = RegisterPage;
+module.exports = RegistrationPage;

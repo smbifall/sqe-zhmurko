@@ -28,7 +28,6 @@ describe('Task 1 (Epam Web)', () => {
   });
 
   it('Verify changing language to UA', () => {
-    // homePage.header.openLocationSelectionMenu();
     homePage.header.changeLocation('Україна');
     cy.url('eq', route.epamUkraine);
   });
