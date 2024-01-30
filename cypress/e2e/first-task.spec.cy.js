@@ -1,10 +1,12 @@
 const HomePage = require('../support/page_objects/pages/epam/home.page');
 const SearchPage = require('../support/page_objects/pages/epam/search.page');
+const SearchPanel = require('../support/page_objects/components/epam/search-panel.component');
 const ContactPage = require('../support/page_objects/pages/epam/contact.page');
-const Route = require('../support/page_objects/pages/epam/route');
+const Route = require('../support/route');
 
 const homePage = new HomePage();
 const searchPage = new SearchPage();
+const searchPanel = new SearchPanel();
 const contactPage = new ContactPage();
 const route = new Route();
 
@@ -26,8 +28,8 @@ describe('Task 1 (Epam Web)', () => {
   });
 
   it('Verify changing language to UA', () => {
-    homePage.header.openLocationSelectionMenu();
-    homePage.header.locationSelectionUkraine.click();
+    // homePage.header.openLocationSelectionMenu();
+    homePage.header.changeLocation('Україна');
     cy.url('eq', route.epamUkraine);
   });
 
@@ -65,9 +67,7 @@ describe('Task 1 (Epam Web)', () => {
   });
 
   it('Verify the search function', () => {
-    homePage.header.openSearchPanel();
-    homePage.header.searchInputField.type('AI');
-    homePage.header.searchButton.click();
+    searchPanel.search('AI');
     searchPage.searchResultList.should('be.visible');
     searchPage.searchResultItem.should('have.length.greaterThan', 0);
   });

@@ -1,5 +1,6 @@
 class Route {
 
+  // TASK #1: EPAM PAGE
   get epamGlobal() { 
     return 'https://www.epam.com/'; 
   }
