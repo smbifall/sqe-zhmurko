@@ -31,15 +31,19 @@ class Route {
   get loginPage() { 
     return 'https://demowebshop.tricentis.com/login'; 
   }
-  get desktopsCategoryPage() { 
+  get desktopsPage() { 
     return 'https://demowebshop.tricentis.com/desktops'; 
   }
-  get jewelryCategoryPage() { 
+  get jewelryPage() { 
     return 'https://demowebshop.tricentis.com/jewelry'; 
+  }
+  get cartPage() {
+    return 'https://demowebshop.tricentis.com/cart';
   }
   get checkoutPage() { 
     return 'https://demowebshop.tricentis.com/onepagecheckout'; 
   }
+
   openHomePage() {
     cy.visit(this.homePage);
   }
@@ -48,6 +52,18 @@ class Route {
   }
   openLoginPage() {
     cy.visit(this.loginPage);
+  }
+  openDesktopsPage() {
+    cy.visit(this.desktopsPage);
+  }
+  openJewelryPage() {
+    cy.visit(this.jewelryPage);
+  }
+  openCartPage() {
+    cy.visit(this.cartPage);
+  }
+  openCheckoutPage() {
+    cy.visit(this.checkoutPage);
   }
 }
 

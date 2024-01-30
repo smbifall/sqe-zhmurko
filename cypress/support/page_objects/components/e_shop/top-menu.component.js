@@ -1,24 +1,26 @@
-class Categories {
+class TopMenu {
 
-  get computersGroup() {return cy.get('.top-menu').contains('Computers'); }
+  get computersCategory() {
+    return cy.get('.top-menu').contains('Computers'); 
+  }
 
-  getComputersGroupNames() {
+  getComputersCategoryNames() {
     return [
       'Desktops',
       'Notebooks',
       'Accessories',
     ];
   }
-  getComputersGroupSelectors() {
+  getComputersCategorySelectors() {
     return [
       '.top-menu > :nth-child(2) > .sublist > :nth-child(1) > a',
       '.top-menu > :nth-child(2) > .sublist > :nth-child(2) > a',
       '.top-menu > :nth-child(2) > .sublist > :nth-child(3) > a',
     ];
   }
-  hoverOverComputers() {
-    this.computersGroup.trigger('mouseover');
+  hoverOverComputersCategory() {
+    this.computersCategory.trigger('mouseover');
   }
 
 }
-module.exports = Categories;
+module.exports = TopMenu;
