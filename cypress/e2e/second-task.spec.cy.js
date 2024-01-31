@@ -16,7 +16,7 @@ const desktopsPage = new DesktopsPage();
 const jewelryPage = new JewelryPage();
 const cartPage = new CartPage();
 
-describe('task 2', () => {
+describe('Task #2', () => {
 
   const regData = registrationPage.generateRegistrationData();
 

@@ -2,10 +2,18 @@ const { faker } = require('@faker-js/faker');
 
 class User {
 
-  get loginUrl() { return 'https://petstore.swagger.io/v2/user/login'; }
-  get registrationUrl() { return 'https://petstore.swagger.io/v2/user'; }
-  get usersListUrl() { return 'https://petstore.swagger.io/v2/user/createWithArray'; }
-  get logoutUrl() { return 'https://petstore.swagger.io/v2/user/logout'; }
+  get loginUrl() { 
+    return 'https://petstore.swagger.io/v2/user/login'; 
+  }
+  get registrationUrl() { 
+    return 'https://petstore.swagger.io/v2/user'; 
+  }
+  get usersListUrl() { 
+    return 'https://petstore.swagger.io/v2/user/createWithArray'; 
+  }
+  get logoutUrl() { 
+    return 'https://petstore.swagger.io/v2/user/logout'; 
+  }
 
   generateRegistrationData() {
     const id = 1;

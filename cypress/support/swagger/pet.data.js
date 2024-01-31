@@ -1,6 +1,8 @@
 class Pet {
 
-  get petUrl() { return 'https://petstore.swagger.io/v2/pet'; }
+  get petUrl() { 
+    return 'https://petstore.swagger.io/v2/pet'; 
+  }
 
   generatePetData() {
     return {

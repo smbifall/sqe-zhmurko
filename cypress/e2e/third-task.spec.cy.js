@@ -1,11 +1,12 @@
-const SwaggerData = require('../support/po/pages/pet_store/swaggerData');
+const SwaggerData = require('../support/swagger/swagger.data');
 
 const swaggerData = new SwaggerData();
 
-describe('task 3', () => {
+describe('Task #3', () => {
+
   const registrationData = swaggerData.user.generateRegistrationData();
 
-  it('create new user', () => {
+  it('Create a new user', () => {
     cy.request(
       {
         method: 'POST',
