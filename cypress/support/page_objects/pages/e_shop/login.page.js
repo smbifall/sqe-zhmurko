@@ -10,16 +10,17 @@ class LoginPage {
     return cy.get('form > .buttons > .button-1'); 
   }
 
-  loginUser(data) {
-    if (data.email) {
+  loginUser() {
+    cy.fixture('login.json').as('userData');
+    cy.get('@userData').then((data) => {
       this.email.type(data.email);
-    }
-    if (data.password) {
       this.password.type(data.password);
-    }
+    });
     cy.intercept('POST', 'https://demowebshop.tricentis.com/login')
       .as('login');
     this.loginButton.click();
+
+    return cy.get('@userData').its('email');
   }
 
 }

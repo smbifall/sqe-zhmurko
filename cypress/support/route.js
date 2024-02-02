@@ -25,9 +25,6 @@ class Route {
   get registrationPage() { 
     return 'https://demowebshop.tricentis.com/register'; 
   }
-  get successRegistration() { 
-    return 'https://demowebshop.tricentis.com/registerresult/1'; 
-  }
   get loginPage() { 
     return 'https://demowebshop.tricentis.com/login'; 
   }

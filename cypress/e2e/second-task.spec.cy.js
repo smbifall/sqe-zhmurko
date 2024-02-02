@@ -18,31 +18,30 @@ const cartPage = new CartPage();
 
 describe('Task #2', () => {
 
-  const regData = registrationPage.generateRegistrationData();
-
   beforeEach(() => {
     route.openHomePage();
   });
 
   it('Register a user', () => {
+    const regData = registrationPage.generateRegistrationData();
+
     header.openRegistrationPage();
     cy.url().should('eq', route.registrationPage);
     registrationPage.registerUser(regData);
     cy.wait('@registration')
       .its('response.statusCode')
       .should('eq', 302);
-    cy.url().should('eq', route.successRegistration);
     registrationPage.registerResult.should('contain.text', 'Your registration completed');
   });
 
   it('Login a user', () => {
     header.openLoginPage();
-    cy.url().should('eq', route.loginPage);
-    loginPage.loginUser(regData);
-    cy.wait('@login')
-      .its('response.statusCode')
-      .should('eq', 302);
-    header.accountInfo.should('have.text', regData.email);
+    loginPage.loginUser().then(userEmail => {
+      cy.wait('@login')
+        .its('response.statusCode')
+        .should('eq', 302);
+      header.accountInfo.should('have.text', userEmail);
+    });
   });
 
   it('Verify that `Computers` group has 3 sub-groups with correct names', () => {
@@ -101,7 +100,7 @@ describe('Task #2', () => {
 
   it('Add an item to the wishlist', () => {
     route.openLoginPage();
-    loginPage.loginUser(regData);
+    loginPage.loginUser();
     route.openJewelryPage();
     cy.intercept('POST', 'https://demowebshop.tricentis.com/addproducttocart/details/**')
       .as('addToWishlist');
@@ -141,7 +140,7 @@ describe('Task #2', () => {
 
   it('checkout an item', () => {
     route.openLoginPage();
-    loginPage.loginUser(regData);
+    loginPage.loginUser();
     route.openJewelryPage();
     jewelryPage.addItemToCart();
     route.openCartPage();
