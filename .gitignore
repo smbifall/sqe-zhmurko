@@ -1,2 +1,8 @@
+# dependencies
 node_modules/
+
+# testing
 reports/
+
+# misc
+.DS_Store

@@ -72,6 +72,8 @@ class RegistrationPage {
   }
   registerUser(data) {
     this.fillRegistrationForm(data);
+    cy.intercept('POST', 'https://demowebshop.tricentis.com/register')
+      .as('registration');
     this.registerButton.click();
   }
 

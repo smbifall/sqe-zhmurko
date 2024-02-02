@@ -28,6 +28,9 @@ describe('Task #2', () => {
     header.openRegistrationPage();
     cy.url().should('eq', route.registrationPage);
     registrationPage.registerUser(regData);
+    cy.wait('@registration')
+      .its('response.statusCode')
+      .should('eq', 302);
     cy.url().should('eq', route.successRegistration);
     registrationPage.registerResult.should('contain.text', 'Your registration completed');
   });
@@ -36,6 +39,9 @@ describe('Task #2', () => {
     header.openLoginPage();
     cy.url().should('eq', route.loginPage);
     loginPage.loginUser(regData);
+    cy.wait('@login')
+      .its('response.statusCode')
+      .should('eq', 302);
     header.accountInfo.should('have.text', regData.email);
   });
 

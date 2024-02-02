@@ -17,6 +17,8 @@ class LoginPage {
     if (data.password) {
       this.password.type(data.password);
     }
+    cy.intercept('POST', 'https://demowebshop.tricentis.com/login')
+      .as('login');
     this.loginButton.click();
   }
 
