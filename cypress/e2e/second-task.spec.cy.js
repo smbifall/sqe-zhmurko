@@ -20,9 +20,18 @@ const wishlistPage = new WishlistPage();
 
 describe('Task #2', () => {
 
+  let sortingProducts;
+  
+  before(() => {
+    cy.fixture('sortingProducts.json').then(data => {
+      sortingProducts = data;
+    });
+  });
+
   beforeEach(() => {
     route.openHomePage();
   });
+  
   after(() => {
     // Clear user's cart
     header.openCartPage();
@@ -68,33 +77,27 @@ describe('Task #2', () => {
   });
 
   it('Sort items in ascending order', () => {
-    cy.fixture('sortingProducts.json').then(sortingProducts => {
-      route.openDesktopsPage();
-      desktopsPage.selectSortingOption('Name: A to Z');
-      desktopsPage.productName
-        .invoke('text')
-        .then(actualText => {
-          const trimmedActualText = actualText.replace(/\s+/g, ' ').trim();
-          const trimmedExpectedText = sortingProducts.ascendingOrder.join(' ');
-          expect(trimmedActualText).to.equal(trimmedExpectedText);
-        });
-    });
+    route.openDesktopsPage();
+    desktopsPage.selectSortingOption('Name: A to Z');
+    desktopsPage.productName
+      .invoke('text')
+      .then(actualText => {
+        const trimmedActualText = actualText.replace(/\s+/g, ' ').trim();
+        const trimmedExpectedText = sortingProducts.ascendingOrder.join(' ');
+        expect(trimmedActualText).to.equal(trimmedExpectedText);
+      });
   });
 
   it('Sort items in descending order', () => {
-    cy.fixture('sortingProducts.json').then(sortingProducts => {
-      route.openDesktopsPage();
-      desktopsPage.selectSortingOption('Price: High to Low');
-      desktopsPage.productPrice.should('have.text', sortingProducts.descendingOrder.join(''));
-    });
+    route.openDesktopsPage();
+    desktopsPage.selectSortingOption('Price: High to Low');
+    desktopsPage.productPrice.should('have.text', sortingProducts.descendingOrder.join(''));
   });
 
   it('Change number of items on a page', () => {
-    cy.fixture('sortingProducts.json').then(sortingProducts => {
-      route.openDesktopsPage();
-      desktopsPage.selectItemsPerPage(`${sortingProducts.itemsCount}`);
-      desktopsPage.product.should('have.length', sortingProducts.itemsCount);
-    });
+    route.openDesktopsPage();
+    desktopsPage.selectItemsPerPage(`${sortingProducts.itemsCount}`);
+    desktopsPage.product.should('have.length', sortingProducts.itemsCount);
   });
 
   it('Add an item to the wishlist', () => {
