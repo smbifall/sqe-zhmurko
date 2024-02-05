@@ -33,17 +33,10 @@ describe('Task 1 (Epam Web)', () => {
   });
 
   it('Verify the policies list', () => {
-    const expectedTexts = 
-      [
-        'INVESTORS',
-        'OPEN SOURCE',
-        'PRIVACY POLICY',
-        'COOKIE POLICY',
-        'APPLICANT PRIVACY NOTICE',
-        'WEB ACCESSIBILITY',
-      ];
-    homePage.epamPoliciesLinks.each(($link, index) => {
-      cy.wrap($link).should('contain.text', expectedTexts[index]);
+    cy.fixture('epamHome.json').then(items => {
+      homePage.epamPoliciesLinks.each(($link, index) => {
+        cy.wrap($link).should('contain.text', items.policiesItems[index]);
+      });
     });
   });
 

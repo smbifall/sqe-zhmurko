@@ -4,41 +4,35 @@ const swaggerData = new SwaggerData();
 
 describe('Task #3', () => {
 
-  const registrationData = swaggerData.user.generateRegistrationData();
-
   it('Create a new user', () => {
     cy.request(
       {
         method: 'POST',
         url: swaggerData.user.registrationUrl,
-        body: registrationData,
+        body: swaggerData.user.generateRegistrationData(),
       })
-      .then((response) => { expect(response.status).to.equal(200); });
+      .then((response) => { expect(response.status).to.eq(200); });
   });
 
   it('login', () => {
-    const loginData = swaggerData.user.getLoginData();
-
     cy.request(
       {
         method: 'GET',
         url: swaggerData.user.loginUrl,
-        body: loginData,
+        body: swaggerData.user.getLoginData(),
       })
       .then((response) => { expect(response.status).to.eq(200); });
   });
 
   it('create a list of users', () => {
-    const usersArray = [
-      swaggerData.user.generateRegistrationData(),
-      swaggerData.user.generateRegistrationData(),
-    ];
-
     cy.request(
       {
         method: 'POST',
         url: swaggerData.user.usersListUrl,
-        body: usersArray,
+        body: [
+          swaggerData.user.generateRegistrationData(),
+          swaggerData.user.generateRegistrationData(),
+        ],
       })
       .then((response) => { expect(response.status).to.eq(200); });
   });
@@ -107,7 +101,7 @@ describe('Task #3', () => {
       apiKey: 'apiKey',
       petId: petId,
     };
-
+    
     cy.request(
       {
         method: 'DELETE',

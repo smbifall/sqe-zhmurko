@@ -20,7 +20,7 @@ class RegistrationPage {
     return cy.get('#register-button'); 
   }
   get registerResult() { 
-    return cy.get('.result'); 
+    return cy.contains('.result', 'Your registration completed');
   }
 
   fillRegistrationForm(params) {
@@ -53,7 +53,6 @@ class RegistrationPage {
       const randomIndex = Math.floor(Math.random() * genders.length);
       return genders[randomIndex];
     };
-    
     const gender = randomGender();
     const firstName = faker.person.firstName();
     const lastName = faker.person.lastName();
@@ -70,8 +69,10 @@ class RegistrationPage {
       confirmPassword,
     };
   }
-  registerUser(data) {
-    this.fillRegistrationForm(data);
+  registerUser() {
+    const regData = this.generateRegistrationData();
+    
+    this.fillRegistrationForm(regData);
     cy.intercept('POST', 'https://demowebshop.tricentis.com/register')
       .as('registration');
     this.registerButton.click();

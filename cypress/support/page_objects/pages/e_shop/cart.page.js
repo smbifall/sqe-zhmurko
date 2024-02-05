@@ -19,8 +19,10 @@ class CartPage {
     return cy.get('#checkout'); 
   }
 
-  cleanCart() {
+  clearCart() {
     this.removeFromCartCheckbox.click();
+    cy.intercept('POST', 'https://demowebshop.tricentis.com/cart')
+      .as('clearCart');
     this.updateCartButton.click();
   }
   checkout() {

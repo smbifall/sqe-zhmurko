@@ -20,10 +20,14 @@ class JewelryPage {
 
   addItemToWishlist() {
     this.jewelryItem.click();
+    cy.intercept('POST', 'https://demowebshop.tricentis.com/addproducttocart/details/**')
+      .as('addToWishlist');
     this.addToWishlistButton.click();
   }
   addItemToCart() {
     this.jewelryItem.click();
+    cy.intercept('POST', 'https://demowebshop.tricentis.com/addproducttocart/details/**')
+      .as('addToCart');
     this.addToCartButton.click();
   }
 

@@ -6,6 +6,7 @@ const RegistrationPage = require('../support/page_objects/pages/e_shop/registrat
 const DesktopsPage = require('../support/page_objects/pages/e_shop/desktops.page');
 const JewelryPage = require('../support/page_objects/pages/e_shop/jewelry.page');
 const CartPage = require('../support/page_objects/pages/e_shop/cart.page');
+const WishlistPage = require('../support/page_objects/pages/e_shop/wishlist.page');
 
 const route = new Route();
 const header = new Header();
@@ -15,23 +16,35 @@ const registrationPage = new RegistrationPage();
 const desktopsPage = new DesktopsPage();
 const jewelryPage = new JewelryPage();
 const cartPage = new CartPage();
+const wishlistPage = new WishlistPage();
 
 describe('Task #2', () => {
 
   beforeEach(() => {
     route.openHomePage();
   });
+  after(() => {
+    // Clear user's cart
+    header.openCartPage();
+    cartPage.clearCart();
+    cy.wait('@clearCart')
+      .its('response.statusCode')
+      .should('eq', 200);
+    // Clear user's wishlist
+    header.openWishlistPage();
+    wishlistPage.clearWishlist();
+    cy.wait('@clearWishlist')
+      .its('response.statusCode')
+      .should('eq', 200);
+  });
 
   it('Register a user', () => {
-    const regData = registrationPage.generateRegistrationData();
-
     header.openRegistrationPage();
-    cy.url().should('eq', route.registrationPage);
-    registrationPage.registerUser(regData);
+    registrationPage.registerUser();
     cy.wait('@registration')
       .its('response.statusCode')
       .should('eq', 302);
-    registrationPage.registerResult.should('contain.text', 'Your registration completed');
+    registrationPage.registerResult.should('be.visible');
   });
 
   it('Login a user', () => {
@@ -55,55 +68,39 @@ describe('Task #2', () => {
   });
 
   it('Sort items in ascending order', () => {
-    const expectedAscOrder = [
-      'Build your own cheap computer', 
-      'Build your own computer', 
-      'Build your own expensive computer', 
-      'Desktop PC with CDRW', 
-      'Elite Desktop PC', 
-      'Simple Computer',
-    ];
-
-    route.openDesktopsPage();
-    desktopsPage.selectSortingOption('Name: A to Z');
-    desktopsPage.productName
-      .invoke('text')
-      .then(actualText => {
-        const trimmedActualText = actualText.replace(/\s+/g, ' ').trim();
-        const trimmedExpectedText = expectedAscOrder.join(' ');
-        expect(trimmedActualText).to.equal(trimmedExpectedText);
-      });
+    cy.fixture('sortingProducts.json').then(sortingProducts => {
+      route.openDesktopsPage();
+      desktopsPage.selectSortingOption('Name: A to Z');
+      desktopsPage.productName
+        .invoke('text')
+        .then(actualText => {
+          const trimmedActualText = actualText.replace(/\s+/g, ' ').trim();
+          const trimmedExpectedText = sortingProducts.ascendingOrder.join(' ');
+          expect(trimmedActualText).to.equal(trimmedExpectedText);
+        });
+    });
   });
 
   it('Sort items in descending order', () => {
-    const expectedDescOrder = [
-      '1800.00', 
-      '1350.00', 
-      '1200.00', 
-      '800.00', 
-      '800.00', 
-      '500.00',
-    ];
-
-    route.openDesktopsPage();
-    desktopsPage.selectSortingOption('Price: High to Low');
-    desktopsPage.productPrice.should('have.text', expectedDescOrder.join(''));
+    cy.fixture('sortingProducts.json').then(sortingProducts => {
+      route.openDesktopsPage();
+      desktopsPage.selectSortingOption('Price: High to Low');
+      desktopsPage.productPrice.should('have.text', sortingProducts.descendingOrder.join(''));
+    });
   });
 
   it('Change number of items on a page', () => {
-    const expectedItemCount = 4;
-
-    route.openDesktopsPage();
-    desktopsPage.selectItemsPerPage(`${expectedItemCount}`);
-    desktopsPage.product.should('have.length', expectedItemCount);
+    cy.fixture('sortingProducts.json').then(sortingProducts => {
+      route.openDesktopsPage();
+      desktopsPage.selectItemsPerPage(`${sortingProducts.itemsCount}`);
+      desktopsPage.product.should('have.length', sortingProducts.itemsCount);
+    });
   });
 
   it('Add an item to the wishlist', () => {
     route.openLoginPage();
     loginPage.loginUser();
     route.openJewelryPage();
-    cy.intercept('POST', 'https://demowebshop.tricentis.com/addproducttocart/details/**')
-      .as('addToWishlist');
     jewelryPage.addItemToWishlist();
     cy.wait('@addToWishlist')
       .its('response.statusCode')
@@ -112,10 +109,8 @@ describe('Task #2', () => {
     jewelryPage.wishlistQuantity.should('have.text', '(1)');
   });
 
-  it('add an item to the cart', () => {
+  it('Add an item to the cart', () => {
     route.openJewelryPage();
-    cy.intercept('POST', 'https://demowebshop.tricentis.com/addproducttocart/details/**')
-      .as('addToCart');
     jewelryPage.addItemToCart();
     cy.wait('@addToCart')
       .its('response.statusCode')
@@ -124,21 +119,19 @@ describe('Task #2', () => {
     jewelryPage.cartQuantity.should('have.text', '(1)');
   });
 
-  it('remove an item from the cart', () => {
+  it('Remove an item from the cart', () => {
     route.openJewelryPage();
     jewelryPage.addItemToCart();
     route.openCartPage();
-    cy.intercept('POST', 'https://demowebshop.tricentis.com/cart')
-      .as('removeCartItem');
-    cartPage.cleanCart();
-    cy.wait('@removeCartItem')
+    cartPage.clearCart();
+    cy.wait('@clearCart')
       .its('response.statusCode')
       .should('eq', 200);
     cartPage.summaryContent.should('contain.text', 'Your Shopping Cart is empty!');
     cartPage.jewelryItem.should('not.exist');
   });
 
-  it('checkout an item', () => {
+  it('Checkout an item', () => {
     route.openLoginPage();
     loginPage.loginUser();
     route.openJewelryPage();

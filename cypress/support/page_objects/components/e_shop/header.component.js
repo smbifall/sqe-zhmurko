@@ -22,6 +22,12 @@ class Header {
   openRegistrationPage() {
     this.registrationButton.click();
   }
+  openCartPage() {
+    this.cart.click();
+  }
+  openWishlistPage() {
+    this.wishlist.click();
+  }
 
 }
 
