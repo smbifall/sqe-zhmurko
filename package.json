@@ -5,7 +5,8 @@
   "description": "Final hometask for Software Quality Engineering Mentoring Program 2023/Q3 - 2024/Q1",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test:chrome": "cypress run --browser chrome --headless",
+    "test:firefox": "cypress run --browser firefox --headless"
   },
   "keywords": [],
   "author": "Oleksandr Zhmurko",

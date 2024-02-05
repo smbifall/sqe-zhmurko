@@ -3,6 +3,9 @@ node_modules/
 
 # testing
 reports/
+screenshots/
+mochawesome-report/
+downloads/
 
 # misc
 .DS_Store
