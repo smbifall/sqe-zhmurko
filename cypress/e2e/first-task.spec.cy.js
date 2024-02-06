@@ -12,14 +12,20 @@ const route = new Route();
 
 describe('Task 1 (Epam Web)', () => {
 
+  let epamData;
+
+  before(() => {
+    cy.fixture('epamHome.json').then(data => {
+      epamData = data;
+    });
+  });
+
   beforeEach(() => {
     route.openEpamGlobal();
   });
 
   it('Verify the correct title', () => {
-    cy.fixture('epamHome.json').then(data => {
-      homePage.epamTitle.should('equal', data.epamTitle);
-    });
+    homePage.epamTitle.should('equal', epamData.epamTitle);
   });
 
   it('Verify switch between light & dark mode', () => {
@@ -35,10 +41,8 @@ describe('Task 1 (Epam Web)', () => {
   });
 
   it('Verify the policies list', () => {
-    cy.fixture('epamHome.json').then(data => {
-      homePage.epamPoliciesLinks.each(($link, index) => {
-        cy.wrap($link).should('contain.text', data.policiesItems[index]);
-      });
+    homePage.epamPoliciesLinks.each(($link, index) => {
+      cy.wrap($link).should('contain.text', epamData.policiesItems[index]);
     });
   });
 
