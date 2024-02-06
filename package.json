@@ -3,7 +3,7 @@
   "type": "module",
   "version": "1.0.0",
   "description": "Final hometask for Software Quality Engineering Mentoring Program 2023/Q3 - 2024/Q1",
-  "main": "index.js",
+  "main": "e2e.js",
   "scripts": {
     "test:chrome": "cypress run --browser chrome --headless",
     "test:firefox": "cypress run --browser firefox --headless"

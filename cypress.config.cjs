@@ -7,10 +7,8 @@ module.exports = defineConfig({
     },
   },
   reporter: 'cypress-mochawesome-reporter',
-  viewportHeight: 720,
-  viewportWidth: 1280,
+  viewportHeight: 1080,
+  viewportWidth: 1920,
   chromeWebSecurity: false,
-  browser: 'firefox',
-  firefoxWebSecurity: false,
-  defaultCommandTimeout: 2000,
+  defaultCommandTimeout: 3000,
 });

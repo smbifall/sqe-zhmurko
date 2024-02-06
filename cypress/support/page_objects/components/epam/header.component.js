@@ -3,9 +3,6 @@ class Header {
   get locationSelectionButton() { 
     return cy.get('.location-selector__button'); 
   }
-  // get locationSelectionUkraine() { 
-  //   return cy.contains('.location-selector__list', 'Українська'); 
-  // }
   get locationSelectionItem() { 
     return cy.get('.location-selector__panel .location-selector__list .location-selector__link'); 
   }

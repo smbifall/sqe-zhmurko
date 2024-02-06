@@ -12,6 +12,7 @@ class SearchPanel {
 
   search(input) {
     this.searchIcon.click();
+    this.searchInputField.should('be.visible');
     this.searchInputField.type(input);
     this.searchButton.click();
   }

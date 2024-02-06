@@ -4,7 +4,7 @@ class CartPage {
     return cy.get('.product > a'); 
   }
   get removeFromCartCheckbox() { 
-    return cy.get('td.remove-from-cart input[type="checkbox"]');
+    return cy.get('tbody > tr > td.remove-from-cart > input[type=checkbox]');
   }
   get updateCartButton() { 
     return cy.get('.update-cart-button'); 
@@ -20,6 +20,7 @@ class CartPage {
   }
 
   clearCart() {
+    this.removeFromCartCheckbox.should('be.visible');
     this.removeFromCartCheckbox.click();
     cy.intercept('POST', 'https://demowebshop.tricentis.com/cart')
       .as('clearCart');
