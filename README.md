@@ -1,4 +1,4 @@
-[Important!](https://www.youtube.com/watch?v=dQw4w9WgXcQ){:target="\_blank"}
+[Important!](https://www.youtube.com/watch?v=dQw4w9WgXcQ)
 
 Run tests in Chrome:
 
