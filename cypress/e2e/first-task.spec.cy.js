@@ -17,7 +17,9 @@ describe('Task 1 (Epam Web)', () => {
   });
 
   it('Verify the correct title', () => {
-    homePage.epamTitle.should('equal', 'EPAM | Software Engineering & Product Development Services');
+    cy.fixture('epamHome.json').then(data => {
+      homePage.epamTitle.should('equal', data.epamTitle);
+    });
   });
 
   it('Verify switch between light & dark mode', () => {
@@ -33,9 +35,9 @@ describe('Task 1 (Epam Web)', () => {
   });
 
   it('Verify the policies list', () => {
-    cy.fixture('epamHome.json').then(items => {
+    cy.fixture('epamHome.json').then(data => {
       homePage.epamPoliciesLinks.each(($link, index) => {
-        cy.wrap($link).should('contain.text', items.policiesItems[index]);
+        cy.wrap($link).should('contain.text', data.policiesItems[index]);
       });
     });
   });

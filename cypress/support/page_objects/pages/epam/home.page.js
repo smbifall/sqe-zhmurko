@@ -9,7 +9,7 @@ class HomePage {
   }
 
   get epamTitle() {
-    return cy.title(); 
+    return cy.title();
   }
   get epamLogo() { 
     return cy.get('.desktop-logo > .header__logo-light'); 
