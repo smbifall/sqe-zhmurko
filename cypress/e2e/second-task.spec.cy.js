@@ -1,22 +1,12 @@
-const Route = require('../support/route');
-const TopMenu = require('../support/page_objects/components/e_shop/top-menu.component');
-const Header = require('../support/page_objects/components/e_shop/header.component');
-const LoginPage = require('../support/page_objects/pages/e_shop/login.page');
-const RegistrationPage = require('../support/page_objects/pages/e_shop/registration.page');
-const DesktopsPage = require('../support/page_objects/pages/e_shop/desktops.page');
-const JewelryPage = require('../support/page_objects/pages/e_shop/jewelry.page');
-const CartPage = require('../support/page_objects/pages/e_shop/cart.page');
-const WishlistPage = require('../support/page_objects/pages/e_shop/wishlist.page');
-
-const route = new Route();
-const header = new Header();
-const topMenu = new TopMenu();
-const loginPage = new LoginPage();
-const registrationPage = new RegistrationPage();
-const desktopsPage = new DesktopsPage();
-const jewelryPage = new JewelryPage();
-const cartPage = new CartPage();
-const wishlistPage = new WishlistPage();
+const route = new (require('../support/route'))();
+const header = new (require('../support/page_objects/components/e_shop/header.component'))();
+const topMenu = new (require('../support/page_objects/components/e_shop/top-menu.component'))();
+const loginPage = new (require('../support/page_objects/pages/e_shop/login.page'))();
+const registrationPage = new (require('../support/page_objects/pages/e_shop/registration.page'))();
+const desktopsPage = new (require('../support/page_objects/pages/e_shop/desktops.page'))();
+const jewelryPage = new (require('../support/page_objects/pages/e_shop/jewelry.page'))();
+const cartPage = new (require('../support/page_objects/pages/e_shop/cart.page'))();
+const wishlistPage = new (require('../support/page_objects/pages/e_shop/wishlist.page'))();
 
 describe('Task #2', () => {
 
@@ -31,7 +21,7 @@ describe('Task #2', () => {
   beforeEach(() => {
     route.openHomePage();
   });
-  
+
   after(() => {
     // Clear user's cart
     header.openCartPage();

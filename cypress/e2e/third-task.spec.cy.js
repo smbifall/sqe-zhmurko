@@ -1,6 +1,4 @@
-const SwaggerData = require('../support/swagger/swagger.data');
-
-const swaggerData = new SwaggerData();
+const swaggerData = new (require('../support/swagger/swagger.data'))();
 
 describe('Task #3', () => {
 
@@ -14,7 +12,7 @@ describe('Task #3', () => {
       .then((response) => { expect(response.status).to.eq(200); });
   });
 
-  it('login', () => {
+  it('Login with valid credentials', () => {
     cy.request(
       {
         method: 'GET',
@@ -24,7 +22,7 @@ describe('Task #3', () => {
       .then((response) => { expect(response.status).to.eq(200); });
   });
 
-  it('create a list of users', () => {
+  it('Create a list of users', () => {
     cy.request(
       {
         method: 'POST',
@@ -37,7 +35,7 @@ describe('Task #3', () => {
       .then((response) => { expect(response.status).to.eq(200); });
   });
 
-  it('user logout', () => {
+  it('User logout', () => {
     cy.request(
       {
         method: 'GET',
@@ -46,7 +44,7 @@ describe('Task #3', () => {
       .then((response) => { expect(response.status).to.eq(200); });
   });
 
-  it('add a new pet', () => {
+  it('Add a new pet', () => {
     cy.request(
       {
         method: 'POST',
@@ -56,12 +54,12 @@ describe('Task #3', () => {
       .then((response) => { expect(response.status).to.eq(200); });
   });
 
-  it('update pet image', () => {
+  it('Update Pet`s image', () => {
     const petId = 123;
-    const petImage = ['https://example.com/fluffy.jpg'];
+    const petImageUrl = 'https://example.com/fluffy.jpg';
 
     const formData = new FormData();
-    formData.append('file', petImage[0]);
+    formData.append('file', petImageUrl);
 
     cy.request({
       method: 'POST',
@@ -73,7 +71,7 @@ describe('Task #3', () => {
     }).then((response) => { expect(response.status).to.eq(200); });
   });
 
-  it('update Pet`s name and status', () => {
+  it('Update Pet`s name and status', () => {
     const petId = 123;
     const updatedData = {
       name: 'Pluppy',
@@ -95,7 +93,7 @@ describe('Task #3', () => {
       });
   });
 
-  it('delete a pet', () => {
+  it('Delete a pet', () => {
     const petId = 123;
     const deleteData = {
       apiKey: 'apiKey',

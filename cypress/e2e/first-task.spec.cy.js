@@ -1,14 +1,8 @@
-const HomePage = require('../support/page_objects/pages/epam/home.page');
-const SearchPage = require('../support/page_objects/pages/epam/search.page');
-const SearchPanel = require('../support/page_objects/components/epam/search-panel.component');
-const ContactPage = require('../support/page_objects/pages/epam/contact.page');
-const Route = require('../support/route');
-
-const homePage = new HomePage();
-const searchPage = new SearchPage();
-const searchPanel = new SearchPanel();
-const contactPage = new ContactPage();
-const route = new Route();
+const homePage = new (require('../support/page_objects/pages/epam/home.page'))();
+const searchPage = new (require('../support/page_objects/pages/epam/search.page'))();
+const searchPanel = new (require('../support/page_objects/components/epam/search-panel.component'))();
+const contactPage = new (require('../support/page_objects/pages/epam/contact.page'))();
+const route = new (require('../support/route'))();
 
 describe('Task 1 (Epam Web)', () => {
 
