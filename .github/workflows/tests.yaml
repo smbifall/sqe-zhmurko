@@ -4,7 +4,7 @@ on:
   push:
     branches:
       - main
-  pull-requrest:
+  pull-request:
     branches:
       - main
   schedule:
